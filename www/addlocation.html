@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    	<title>Home Page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link rel="stylesheet" href="css/jquery.mobile-1.4.2.min.css" />
+        <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="js/jquery.mobile-1.4.2.min.js"></script>
+        <script src="js/cordova.js"></script>
+        <script src="js/script.js"></script>
+    </head>
+    <body>
+        <div data-role="page">
+            <div data-role="header" data-position="fixed">
+                <h1>Add Location page</h1>
+            </div>
+            <div data-role="content">
+                <div>
+                    <input id="locationname" type="text" placeholder="LocationName" />
+                    <label id="locnmsg"></label>
+                </div>
+                <div>
+                    <input id="latitudetext" type="text" placeholder="Latitude" />
+                    <label id="lattext"></label>
+                </div>
+                <div>
+                    <input id="longitudetext" type="text" placeholder="Longitude" />
+                    <label id="longtext"></label>
+                </div>
+                <div>
+                    <input id="addlocationbutton" type="button" value="Add" />
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                <h1>Travel Notes</h1>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    	<title>Home Page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link rel="stylesheet" href="css/jquery.mobile-1.4.2.min.css" />
+        <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="js/jquery.mobile-1.4.2.min.js"></script>
+        <script src="js/cordova.js"></script>
+        <script src="js/script.js"></script>
+        <script>
+            function getNotes() {
+            var notes = localStorage['notes'];
+            return JSON.parse(notes);
+            }
+            function removeNote(id){
+                var notes = getNotes();
+                var putback = notes;
+                for (n in notes) {
+                //var note = n.replace( /^\D+/g, '');
+                if(n === id){
+                    delete putback[n];
+                }
+                }
+                localStorage['notes'] = JSON.stringify(putback);
+                location.reload();
+            }
+            function load(){
+                var LINK="LINK";
+                //var li = '<li><a href="viewnotedetails.html?key=LINK">ID</a></li>';
+                var li = '<li><a href="viewnotedetails.html?key=LINK">ID</a><a href="#" onclick="removeNote(\'' + LINK + '\');"></a></li>';
+                //var li = "<li><a href='feed.html?id=" + i + "' data-feed='" + i + "'>" + feeds[i].name + "</a> <a href='#' onclick='removeFeed("+i+");' class='deleteFeed' data-feedid='" + i + "'>Delete</a></li>";
+                var notes = getNotes();
+            if (!$.isEmptyObject(notes)) {
+            var n;
+            var html = '';
+            for (n in notes) {
+                var note = n.replace( /^\D+/g, '');
+                html += li.replace(/ID/g, n.replace(/-/g, ' ')).replace(/LINK/g, n);
+            }
+            $("#notesList").html(html).listview('refresh');
+            }
+            }
+        </script>
+    </head>
+    <body onload="load();">
+        <div data-role="page" id="listloct">
+            <div data-role="header" data-position="fixed">
+                <h1>List Notes page</h1>
+            </div>
+            <div data-role="content">
+                <ul id="notesList" data-role="listview" data-inset="true" data-split-icon="delete">
+                    <li data-role="list-divider">Your Notes</li>
+                    <li id="noNotes">You have no saved notes</li>
+                </ul>
+                <div id="notecontents">
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                <h1>Travel Notes</h1>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    	<title>Home Page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link rel="stylesheet" href="css/jquery.mobile-1.4.2.min.css" />
+        <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="js/jquery.mobile-1.4.2.min.js"></script>
+        <script src="js/cordova.js"></script>
+        <script src="js/script.js"></script>
+        <script>
+            function gettLocations() {
+            var locations = localStorage['locations'];
+            return JSON.parse(locations);
+            }
+            function removeLocation(id){
+                var locations = gettLocations();
+                var putback = locations;
+                for (n in locations) {
+                if(n === id){
+                    delete putback[n];
+                }
+                }
+                localStorage['locations'] = JSON.stringify(putback);
+                location.reload();
+            }
+            function load(){
+                var LINK = "LINK";
+                var li = '<li><a href="#viewlocationdetails?key=LINK">ID</a><a href="#" onclick="removeLocation(\'' + LINK + '\');"></a></li>';
+                var locations = gettLocations();
+            if (!$.isEmptyObject(locations)) {
+            var n;
+            var html = '';
+            for (n in locations) {
+                var location = locations[n];
+                html += li.replace(/ID/g, n.replace(/-/g, ' ')).replace(/LINK/g, n);
+            }
+            $("#locationsList").html(html).listview('refresh');
+            }
+            }
+        </script>
+    </head>
+    <body onload="load();">
+        <div data-role="page" id="listloct">
+            <div data-role="header" data-position="fixed">
+                <h1>List Locations page</h1>
+            </div>
+            <div data-role="content">
+                <ul id="locationsList" data-role="listview" data-inset="true" data-split-icon="delete">
+                    <li data-role="list-divider">Your Locations</li>
+                    <li id="noLocations">You have no saved locations</li>
+                </ul>
+                <div id="locationcontents">
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                <h1>Travel Notes</h1>
+            </div>
+        </div>
+    </body>
+</html>

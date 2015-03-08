@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    	<title>Home Page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link rel="stylesheet" href="css/jquery.mobile-1.4.2.min.css" />
+        <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="js/jquery.mobile-1.4.2.min.js"></script>
+        <script src="js/cordova.js"></script>
+        <script src="js/script.js"></script>
+        <script>
+            function gettLocations() {
+            var locations = localStorage['locations'];
+            return JSON.parse(locations);
+        }
+            function load(){
+                var option = '<option>ID</option>';
+                var locations = gettLocations();
+                if (!$.isEmptyObject(locations)) {
+                var n;
+                var html = '';
+                    for (n in locations) {
+                        var location = locations[n];
+                        html += option.replace(/ID/g, n.replace(/-/g, ' ')).replace(/LINK/g, n);
+                    }
+                    $("#locationdd").html(html).listview('refresh');
+                }
+            }
+        </script>
+    </head>
+    <body onload="load();">
+        <div data-role="page">
+            <div data-role="header" data-position="fixed">
+                <h1>Add Note page</h1>
+            </div>
+            <div data-role="content">
+                <form>
+                    <div>
+                        <select id="category">
+                            <option>Personal</option>
+                            <option>Work</option>
+                            <option>Others</option>
+                        </select>
+                    </div>
+                <div>
+                    <select id="locationdd">
+                        <option selected>-Select Location-</option>
+                    </select>
+                    <label id="locmsg"></label>
+                </div>
+                <div>
+                    <textarea id="description" placeholder="Note description"></textarea>
+                    <label id="descmsg"></label>
+                </div>
+                <div>
+                    <input id="addnotebutton" type="button" value="Add" />
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                <h1>Travel Notes</h1>
+            </div>
+        </div>
+    </body>
+</html>
